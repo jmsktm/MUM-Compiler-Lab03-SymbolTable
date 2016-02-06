@@ -10,6 +10,10 @@ public class MethodEntry extends ScopeEntry {
 	 * MethodEntry, i.e., only the formal parameters can be inserted.
 	 */
 	public boolean addBinding(String name, Entry symTabEntry) {
+		if (lookup(name) == null) {
+			localSymtab.put(name, symTabEntry);
+			return true;
+		}
 		return false;
 	}
 
@@ -25,6 +29,6 @@ public class MethodEntry extends ScopeEntry {
 		// Note that the superclass method toString() cannot be used
 		// here because the delimiters are different (comma here
 		// versus semicolon in the superclass method).
-		return null;
+		return this.type() + " " + this.name() + "();\n";
 	}
 } // End of class MethodEntry

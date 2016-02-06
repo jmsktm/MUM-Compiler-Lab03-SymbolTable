@@ -17,6 +17,7 @@ public abstract class ScopeEntry extends Entry {
 	}
 
 	public ScopeEntry(String name, Type t) {
+		super(name, t);
 	}
 
 	/**
