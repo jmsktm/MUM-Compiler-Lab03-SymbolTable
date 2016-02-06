@@ -1,4 +1,5 @@
 import java.util.Deque;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class SymbolTable {
@@ -50,8 +51,17 @@ public class SymbolTable {
 	 * two different entities.
 	 */
 	public Entry lookup(String name) {
-		ScopeEntry top = scopeStack.getLast();
-		return top.lookup(name);
+		Iterator<ScopeEntry> it = scopeStack.descendingIterator();
+		
+		Entry result = null;
+		while (it.hasNext()) {
+			ScopeEntry entry = it.next();
+			result = entry.lookup(name);
+			if (result != null) {
+				return result;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -64,7 +74,10 @@ public class SymbolTable {
 	 * Return null if 'name1.name2' is not found.
 	 */
 	public Entry lookup(String name1, String name2) {
-		return null;
+		Entry classEntry = lookup(name1);
+		if (classEntry == null) return null;
+		
+		return ((ClassEntry) classEntry).lookup(name2);
 	}
 
 	/**
