@@ -1,3 +1,4 @@
+import java.util.Map;
 
 public class ClassEntry extends ScopeEntry {
 	
@@ -14,6 +15,10 @@ public class ClassEntry extends ScopeEntry {
 	 * declared in the superclass (ScopeEntry), otherwise return false.
 	 */
 	public boolean addBinding(String name, Entry symTabEntry) {
+		if (lookup(name) == null) {
+			localSymtab.put(name, symTabEntry);
+			return true;
+		}
 		return false;
 	}
 
@@ -21,6 +26,11 @@ public class ClassEntry extends ScopeEntry {
 	 * Return a String representation of the class.
 	 */
 	public String toString() {
-		return "class " + this.name() + "{\n" + "}\n";
+		String str = "class " + this.name() + "{\n";
+		for (Map.Entry<String, Entry> entry : localSymtab.entrySet()) {
+			str += entry.getValue().toString() + "\n";
+		}
+		str += "}\n";
+		return str;
 	}
 } // End of class ClassEntry

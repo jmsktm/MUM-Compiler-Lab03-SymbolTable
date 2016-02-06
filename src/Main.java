@@ -156,7 +156,7 @@ public class Main {
 			}
 			case Yytoken.t_end_scope: {
 				ScopeEntry se = symtab.leaveScope();
-				if (se != null) {
+				if (symtab.currentScope() != null) {
 					successMessage(token, 1);
 					System.out.println("Leaving scope ");
 					System.out.println(se);

@@ -1,7 +1,7 @@
 
 public class VariableEntry extends Entry {
 	public VariableEntry(String name, Type t) {
-		// your code goes here
+		super(name, t);
 	}
 
 	/**
@@ -11,6 +11,6 @@ public class VariableEntry extends Entry {
 		// Do not put a semicolon after the variable because sometimes
 		// a variable declaration is followed by a comma, e.g.,
 		// method parameters. Only include the type and identifier name.
-		return null;
+		return this.type().toString() + " " + this.name();
 	}
 } // End of class VariableEntry

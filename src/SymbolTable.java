@@ -24,7 +24,7 @@ public class SymbolTable {
 	 * binding for 'symTabEntry'.
 	 */
 	public boolean insertBinding(Entry symTabEntry) {
-		ScopeEntry top = scopeStack.peekFirst();
+		ScopeEntry top = scopeStack.getLast();
 		top.addBinding(symTabEntry.name(), symTabEntry);
 		return true;
 	}
@@ -34,6 +34,9 @@ public class SymbolTable {
 	 * the top entry.
 	 */
 	public String currentScope() {
+		if (scopeStack.size() > 0) {
+			return scopeStack.getLast().toString();
+		}
 		return null;
 	}
 
@@ -47,7 +50,8 @@ public class SymbolTable {
 	 * two different entities.
 	 */
 	public Entry lookup(String name) {
-		return null;
+		ScopeEntry top = scopeStack.getLast();
+		return top.lookup(name);
 	}
 
 	/**
@@ -78,6 +82,10 @@ public class SymbolTable {
 	 * Return true if the operation is successful, otherwise return false.
 	 */
 	public boolean enterScope(ScopeEntry scopeEntry) {
+		if (scopeEntry != null) {
+			scopeStack.addLast(scopeEntry);
+			return true;
+		}
 		return false;
 	}
 
@@ -91,7 +99,8 @@ public class SymbolTable {
 	 * Thus, in such cases, return null and do not leave the global scope.
 	 */
 	public ScopeEntry leaveScope() {
-		return null;
+		ScopeEntry top = scopeStack.removeLast();
+		return top;
 	}
 
 	/**
@@ -111,6 +120,6 @@ public class SymbolTable {
 	 * the stack.
 	 */
 	public String toString() {
-		return scopeStack.peekLast().toString();
+		return scopeStack.getFirst().toString();
 	}
 } // End of class SymbolTable
