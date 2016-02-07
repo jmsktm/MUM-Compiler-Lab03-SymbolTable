@@ -73,10 +73,21 @@ public class SymbolTable {
 	 * Return null if 'name1.name2' is not found.
 	 */
 	public Entry lookup(String name1, String name2) {
-		Entry classEntry = lookup(name1);
-		if (classEntry == null) return null;
+		Iterator<ScopeEntry> it = scopeStack.descendingIterator();
 		
-		return ((ClassEntry) classEntry).lookup(name2);
+		Entry result = null;
+		while (it.hasNext()) {
+			ScopeEntry entry = it.next();
+			result = entry.lookup(name1);
+			if (result != null && (result.getClass() == ClassEntry.class)) {
+				break;
+			}
+		}
+		
+		if (result != null) {
+			return ((ClassEntry) result).lookup(name2);
+		}
+		return null;
 	}
 
 	/**

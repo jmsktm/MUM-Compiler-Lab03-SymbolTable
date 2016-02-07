@@ -14,6 +14,7 @@ public class BlockEntry extends ScopeEntry {
 	 * the local symbol table declared in the superclass.
 	 */
 	public boolean addBinding(String name, Entry symTabEntry) {
+		if (symTabEntry.getClass() != VariableEntry.class) return false;
 		if (lookup(name) == null) {
 			localSymtab.put(name, symTabEntry);
 			return true;
