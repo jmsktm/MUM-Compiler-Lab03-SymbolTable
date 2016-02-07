@@ -1,0 +1,20 @@
+######################################
+# SUBMITTED BY 	: JAMES SINGH        #
+# DATE		: FEB 06, 2016       #
+# COURSE	: COMPILER           #
+# LAB		: 4                  #
+# TOPIC         : SYMBOL TABLE       #
+######################################
+
+The folder consists of three subfolders:
+ans01 - Entry classes
+ans02 - SymbolTable
+ans03 - output files
+
+The program generates output files which are 100% same as the provided out files.
+
+The entire project can be also found in my github repo:
+https://github.com/jmsktm/MUM-Compiler-Lab03-SymbolTable
+
+Signed,
+James
