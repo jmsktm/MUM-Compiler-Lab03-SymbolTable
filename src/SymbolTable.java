@@ -34,10 +34,17 @@ public class SymbolTable {
 	 * the top entry.
 	 */
 	public String currentScope() {
+		String str = "";
 		if (scopeStack.size() > 0) {
-			return scopeStack.getLast().toString();
+			ScopeEntry entry = scopeStack.getLast();
+			str += entry.toString();
+			if (entry.getClass() == MethodEntry.class) {
+				str += ";\n";
+			}
+			return str;
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	/**

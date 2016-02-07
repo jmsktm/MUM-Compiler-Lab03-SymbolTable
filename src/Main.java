@@ -159,7 +159,11 @@ public class Main {
 				if (symtab.currentScope() != null) {
 					successMessage(token, 1);
 					System.out.println("Leaving scope ");
-					System.out.println(se);
+					if (se instanceof MethodEntry) {
+						System.out.println(se + ";\n");
+					} else {
+						System.out.println(se);
+					}
 					System.out.println("The new scope is ");
 					System.out.println(symtab.currentScope());
 				} else {
@@ -174,7 +178,11 @@ public class Main {
 					se1 = symtab.lookup(name);
 					if (se1 != null) {
 						successMessage(token, 2);
-						System.out.println(se1);
+						if (se1 instanceof MethodEntry) {
+							System.out.println(se1 + ";\n");
+						} else {
+							System.out.println(se1);
+						}
 					} else {
 						errorMessage(token, 2, " -- unknown identifier ");
 					}
@@ -203,7 +211,11 @@ public class Main {
 					se1 = symtab.lookup(name, name2);
 					if (se1 != null) {
 						successMessage(token, 4);
-						System.out.println(se1);
+						if (se1 instanceof MethodEntry) {
+							System.out.println(se1 + ";\n");
+						} else {
+							System.out.println(se1);
+						}
 					} else {
 						errorMessage(token, 4, " -- unknown identifier " + name2);
 					}
@@ -268,7 +280,7 @@ public class Main {
 					errorMessage(token, 4, ")" + msg);
 				} else {
 					System.out.print("Successful command " + token[0].m_line + ": ");
-					System.out.println("method " + me);
+					System.out.println("method " + me + ";\n");
 				}
 				break;
 			}
@@ -321,7 +333,7 @@ public class Main {
 				se1 = symtab.enclosingMethod();
 				if (se1 != null) {
 					successMessage(token, 1);
-					System.out.println(se1);
+					System.out.println(se1 + ";\n");
 				} else {
 					errorMessage(token, 1, " -- no enclosing method");
 				}

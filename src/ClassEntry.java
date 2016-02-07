@@ -26,9 +26,11 @@ public class ClassEntry extends ScopeEntry {
 	 * Return a String representation of the class.
 	 */
 	public String toString() {
-		String str = "class " + this.name() + "{\n";
-		for (Map.Entry<String, Entry> entry : localSymtab.entrySet()) {
-			str += entry.getValue().toString() + "\n";
+		String str = "class " + this.name() + " {\n";
+		if (localSymtab.size() > 0) {
+			for (Map.Entry<String, Entry> entry : localSymtab.entrySet()) {
+				str += entry.getValue().toString() + ";\n";
+			}
 		}
 		str += "}\n";
 		return str;

@@ -43,7 +43,7 @@ public class MethodEntry extends ScopeEntry {
 				str += ", " + val;
 			}
 		}
-		str += ");\n";
+		str += ")";
 		return str;
 	}
 } // End of class MethodEntry

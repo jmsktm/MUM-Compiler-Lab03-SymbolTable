@@ -35,7 +35,7 @@ public class BlockEntry extends ScopeEntry {
 		for (Map.Entry<String, Entry> entry : localSymtab.entrySet()) {
 			str += entry.getValue() + ";\n";
 		}
-		str += "}\n";
+		str += "\n}\n";
 		return str;
 	}
 } // End of class BlockEntry
