@@ -1,3 +1,5 @@
+import java.util.Map;
+
 public class BlockEntry extends ScopeEntry {
 	private static int blockCount = 0;
 
@@ -12,6 +14,10 @@ public class BlockEntry extends ScopeEntry {
 	 * the local symbol table declared in the superclass.
 	 */
 	public boolean addBinding(String name, Entry symTabEntry) {
+		if (lookup(name) == null) {
+			localSymtab.put(name, symTabEntry);
+			return true;
+		}
 		return false;
 	}
 
@@ -24,6 +30,11 @@ public class BlockEntry extends ScopeEntry {
 		// For example, super.toString() should print all of the
 		// bindings declared in this block, i.e., this
 		// method should be written in one line (see GlobalScope).
-		return null;
+		String str = "{\n";
+		for (Map.Entry<String, Entry> entry : localSymtab.entrySet()) {
+			str += entry.getValue() + ";\n";
+		}
+		str += "}\n";
+		return str;
 	}
 } // End of class BlockEntry

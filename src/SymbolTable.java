@@ -26,8 +26,7 @@ public class SymbolTable {
 	 */
 	public boolean insertBinding(Entry symTabEntry) {
 		ScopeEntry top = scopeStack.getLast();
-		top.addBinding(symTabEntry.name(), symTabEntry);
-		return true;
+		return top.addBinding(symTabEntry.name(), symTabEntry);
 	}
 
 	/**
@@ -85,6 +84,14 @@ public class SymbolTable {
 	 * Return null if no such object is found in the scope stack.
 	 */
 	public MethodEntry enclosingMethod() {
+		Iterator<ScopeEntry> it = scopeStack.descendingIterator();
+		
+		while (it.hasNext()) {
+			ScopeEntry entry = it.next();
+			if (entry instanceof MethodEntry) {
+				return (MethodEntry) entry;
+			}
+		}
 		return null;
 	}
 
@@ -124,7 +131,9 @@ public class SymbolTable {
 	 * Return true if the operation is successful, otherwise return false.
 	 */
 	public boolean enterNewBlock() {
-		return false;
+		BlockEntry blockEntry = new BlockEntry();
+		enterScope(blockEntry);
+		return true;
 	}
 
 	/**

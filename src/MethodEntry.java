@@ -1,3 +1,4 @@
+import java.util.Map;
 
 public class MethodEntry extends ScopeEntry {
 
@@ -10,6 +11,7 @@ public class MethodEntry extends ScopeEntry {
 	 * MethodEntry, i.e., only the formal parameters can be inserted.
 	 */
 	public boolean addBinding(String name, Entry symTabEntry) {
+		if (symTabEntry.getClass() != VariableEntry.class) return false;
 		if (lookup(name) == null) {
 			localSymtab.put(name, symTabEntry);
 			return true;
@@ -29,6 +31,19 @@ public class MethodEntry extends ScopeEntry {
 		// Note that the superclass method toString() cannot be used
 		// here because the delimiters are different (comma here
 		// versus semicolon in the superclass method).
-		return this.type() + " " + this.name() + "();\n";
+		String str = this.type() + " " + this.name() + "(";
+		
+		boolean first = true;
+		for (Map.Entry<String, Entry> entry : localSymtab.entrySet()) {
+			String val = entry.getValue().toString();
+			if (first) {
+				str += val;
+				first = false;
+			} else {
+				str += ", " + val;
+			}
+		}
+		str += ");\n";
+		return str;
 	}
 } // End of class MethodEntry
